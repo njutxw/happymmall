@@ -12,6 +12,11 @@ public class Const {
         int ROLE_ADMIN = 1;    //管理员
     }
 
+    public interface Cart{
+        int CHECKED = 1;//即购物车选中状态
+        int UN_CHECKED = 0;//购物车未选中状态
+    }
+
     public enum ProductStatusEnum{
         ON_SALE(1,"在线");
 

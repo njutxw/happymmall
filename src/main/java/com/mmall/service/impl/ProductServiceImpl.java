@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("iProductService")
@@ -171,10 +172,12 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize){
+    public ServerResponse<PageInfo> getProductByKeywordCategory(String keyword,Integer categoryId,int pageNum,int pageSize,String orderBy){
         if(StringUtils.isBlank(keyword) && categoryId == null){
             return ServerResponse.createByErrorCodeMessage(ResponseCode.ILLEGAL_ARGUMENT.getCode(),ResponseCode.ILLEGAL_ARGUMENT.getDesc());
         }
+        List<Integer> categoryIdList = new ArrayList<>();
+
         if(categoryId != null){
             Category category = categoryMapper.selectByPrimaryKey(categoryId);
             if(category == null && StringUtils.isBlank(keyword)){
@@ -184,8 +187,14 @@ public class ProductServiceImpl implements IProductService {
                 PageInfo pageInfo = new PageInfo(productListVoList);
                 return ServerResponse.createBySuccess(pageInfo);
             }
-            iCategoryService
+            categoryIdList = iCategoryService.selectCategoryAndChildrenById(category.getId()).getData();
         }
+        if(StringUtils.isNotBlank(keyword)){
+            keyword = new StringBuilder().append("%").append(keyword).append("%").toString();
+        }
+        PageHelper.startPage(pageNum,pageSize);
+        //排序处理
+       return null;
     }
 
 }
