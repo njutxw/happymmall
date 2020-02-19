@@ -27,7 +27,7 @@ public class ProductController {
                                          @RequestParam(value="categoryId",required=false) Integer categoryId,
                                          @RequestParam(value="pageNum",defaultValue="1") int pageNum,
                                          @RequestParam(value="pageSize",defaultValue="10")int pageSize){
-
+        return null;
     }
 
 }
