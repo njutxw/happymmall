@@ -1,9 +1,9 @@
 package com.mmall.dao;
 
-import com.mmall.pojo.Cart;
-import org.apache.ibatis.annotations.Param;
+        import com.mmall.pojo.Cart;
+        import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+        import java.util.List;
 
 public interface CartMapper {
     int deleteByPrimaryKey(Integer id);
@@ -23,4 +23,6 @@ public interface CartMapper {
     List<Cart> selectCartByUserId(Integer userId);
 
     Integer selectCartProductCheckedStatusByUserId(Integer userId);
+
+    int deleteByUserIdProductIds(@Param("userId")Integer userId,@Param("productIdList")List<String> productIdList);
 }
